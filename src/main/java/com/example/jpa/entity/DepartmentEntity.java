@@ -36,13 +36,17 @@ public class DepartmentEntity {
         return Objects.hash(getId(), getName());
     }
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name="dep_manager")
+    @JoinColumn(name="employee_Manager_ID")
     private EmployeeEntity manager;
 
 
-    @OneToMany(mappedBy="workerDepartment")
+    @OneToMany(mappedBy="workerDeptName")
     @JsonIgnore
     private Set<EmployeeEntity> workers;
+
+    @ManyToMany(mappedBy = "freelance_dept")
+    @JsonIgnore
+    private Set<EmployeeEntity> freelancers;
 }

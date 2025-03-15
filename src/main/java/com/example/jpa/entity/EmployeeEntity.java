@@ -2,8 +2,10 @@ package com.example.jpa.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -34,7 +36,13 @@ public class EmployeeEntity {
 
     @OneToOne(mappedBy = "manager")
     private DepartmentEntity dep_manager;
-    @ManyToOne
-    @JoinColumn(name="workerDept")
-    private DepartmentEntity workerDepartment;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="worker_DeptID")
+    private DepartmentEntity workerDeptName;
+
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="freelance_dept")
+    private Set<DepartmentEntity> freelance_dept;
+
 }
